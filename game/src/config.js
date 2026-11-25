@@ -56,16 +56,23 @@ export const RECIPES = [
   { name: "Chef's Special", steps: ['noodles', 'broth', 'egg', 'chashu', 'scallion', 'nori', 'egg'], price: 18 },
 ];
 
-export const PATIENCE_START = 30;
-export const PATIENCE_FLOOR = 19;
+export const PATIENCE_START = 26;
+export const PATIENCE_FLOOR = 8;
 export const WRONG_PENALTY = 4;
+
+/**
+ * The night gets harder the longer the shop is open. Patience is multiplied by a ramp that slides
+ * from 1.0 at opening to this at closing time, so the first orders are forgiving and the last hour
+ * is genuinely tight. Without it the kitchen is winnable by holding one key down.
+ */
+export const PATIENCE_RAMP_END = 0.62;
 
 /**
  * Seconds the pass is busy after each ingredient lands. The cook cannot stack the next crate until
  * the station is free again — this is what makes a bowl a six-second job rather than a six-click one,
  * and it is the only reason a busy night can outrun a good cook.
  */
-export const PREP_TIME = 0.32;
+export const PREP_TIME = 0.24;
 
 export const COLORS = {
   ink: '#161311',

@@ -5,6 +5,7 @@
 import {
   INGREDIENTS,
   PATIENCE_FLOOR,
+  PATIENCE_RAMP_END,
   PATIENCE_START,
   PREP_TIME,
   RECIPES,
@@ -37,15 +38,21 @@ function mulberry32(seed) {
   };
 }
 
-/** How long a customer waits, before the rush shortens it: a recipe's step count sets the base. */
-function patienceFor(recipe, rand) {
-  const base = PATIENCE_START - recipe.steps.length * 1.6;
-  return Math.max(PATIENCE_FLOOR, base + rand() * 4 - 2);
+/** The night's difficulty multiplier: forgiving at opening, tight by closing time. */
+function rampFor(at) {
+  const progress = Math.min(1, Math.max(0, at / SHIFT_SECONDS));
+  return 1 - (1 - PATIENCE_RAMP_END) * progress;
+}
+
+/** How long a customer waits: a recipe's step count sets the base, the ramp tightens it. */
+function patienceFor(recipe, rand, at) {
+  const base = PATIENCE_START - recipe.steps.length * 1.4;
+  return Math.max(PATIENCE_FLOOR, (base + rand() * 4 - 2) * rampFor(at));
 }
 
 /** A ticket: the recipe plus the clock it must be served before, and what a fast serve pays. */
 function makeTicket(recipe, rand, at) {
-  const patience = patienceFor(recipe, rand);
+  const patience = patienceFor(recipe, rand, at);
   return {
     id: nextTicketId++,
     recipe,
