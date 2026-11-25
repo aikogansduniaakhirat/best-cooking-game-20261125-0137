@@ -1,0 +1,6 @@
+{
+  "name": "midnight-ramen",
+  "private": true,
+  "type": "module",
+  "description": "Midnight Ramen - a one-cook noodle counter, built for the make.fun cooking-game bounty"
+}
