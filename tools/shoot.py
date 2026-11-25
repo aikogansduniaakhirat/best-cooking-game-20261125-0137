@@ -33,8 +33,8 @@ def serve():
 
 
 SHOTS = [
-    ("1-service.jpg", "play", 1),
-    ("2-ready.jpg", "ready", 1),
+    ("1-ready.jpg", "ready", 1),
+    ("2-service.jpg", "play", 1),
     ("3-title.jpg", "start", 1),
     ("4-closing.jpg", "end", 1),
 ]
