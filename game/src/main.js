@@ -25,6 +25,12 @@ const world = new World(seed);
 world.hoverStation = -1;
 let dirty = true;
 
+// A read-only handle for the game's own test: ?debug=1 exposes the live world so a headless run can
+// assert on the shift it actually plays (bowl, score, hearts) instead of guessing from pixels.
+if (params.get('debug') === '1') {
+  Object.defineProperty(window, '__ramen', { value: world, configurable: true });
+}
+
 fit();
 window.addEventListener('resize', () => {
   fit();
